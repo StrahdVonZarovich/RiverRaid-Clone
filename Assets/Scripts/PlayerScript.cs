@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] float projectileSpeed = 10f;
     [SerializeField] public int score = 0;
     [SerializeField] Text scoreText;
+    [SerializeField] GameObject Audio;
     // Use this for initialization
     void Start () {
         InvokeRepeating("FuelDec", 1, 1);
@@ -19,6 +20,8 @@ public class PlayerScript : MonoBehaviour {
         {
             scoreText.text = "Score";
         }
+
+        Audio.gameObject.GetComponent<AudioManager>().mainThemeMusic();
     }
 
     // Update is called once per frame
@@ -47,6 +50,7 @@ public class PlayerScript : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Space)){
             GameObject laser = Instantiate(Laser, transform.position, Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+            Audio.gameObject.GetComponent<AudioManager>().FireMissle();
 
         }
     }
